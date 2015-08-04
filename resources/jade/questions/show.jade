@@ -1,0 +1,113 @@
+include ../_mixin
++extends('main')
+
++section('content')
+    .row
+        .col-sm-12
+            .page-header: a(href!="{{ route('questions.show', $question->id) }}")
+                h1 {{ $question->title }}
+        .col-sm-12
+            .row
+                .col-sm-9
+                    .media
+                        .media-left
+                            +form()(route!="['questions.upvote',$question->id]")
+                                +if('$question->isUpVoted(auth()->user())')
+                                    button(type='submit').btn.btn-link: h4.glyphicon.glyphicon-arrow-up
+                                    +else
+                                        button(type="submit"): h4.glyphicon.glyphicon-arrow-up
+                            h4 {{ $question->votes }}
+                            +form()(route!="['questions.downvote',$question->id]")
+                                +if('$question->isDownVoted(auth()->user())')
+                                    button(type='submit').btn.btn-link: h4.glyphicon.glyphicon-arrow-down
+                                    +else
+                                        button(type='submit').btn.btn-link: h4.glyphicon.glyphicon-arrow-down
+                            +form()(route!="['questions.favorites',$question->id]")
+                                +if('$question->isFavorited(auth()->user())')
+                                    button(type='submit').btn.btn-link: h4.glyphicon.glyphicon-star-empty
+                                    +else
+                                        button(type='submit').btn.btn-link: h4.glyphicon.glyphicon-star
+                            h4 {{ $question->favorites()->count() }}
+
+                        .media-body
+                            div {!! $question->parsed_content !!}
+                            div
+                                +foreach('$question->tags as $tag')
+                                    span.label.label-primary {{ $tag->name }}
+                            .row
+                                .col-sm-6.col-xs-12
+                                    ul.list-inline
+                                        li: a(href!="{{ route('questions.edit', $question->id) }}") Edit
+                                        li: a(href!="{{ route('questions.comments.create', $question->id) }}") Comment
+                                .col-sm-3.col-xs-6
+                                    +if('isset($question->latestRevision)')
+                                        p: small edited {{ $question->updated_at->diffForHumans() }}
+                                .col-sm-3.col-xs-6
+                                    .bg-primary
+                                        p: small asked {{ $question->created_at->diffForHumans() }}
+                                        img(src="http://placehold.it/25x25&text=[img]")
+                                        a(href!="{{ route('users.show', $question->user->id) }}") {{ $question->user->name }}
+                            ul.list-unstyled: +foreach('$question->comments as $comment ')
+                                hr
+                                li {!! $comment->parsed_content !!} &ndash;&nbsp;
+                                    a(href!="{{ route('users.show', $comment->user->id) }}") {{ $comment->user->name }} &nbsp;
+                                    span.text-muted {{ $comment->created_at->diffForHumans() }}
+
+                    +if('$answers->count() > 0')
+                        nav {{ $question->answers()->count() }} answers
+                            ul.nav.nav-tabs.pull-right
+                                li(role="presentation" class!="{{ $sort==='votes' ? 'active' : '' }}"): a(href="?sort=votes") votes
+                                li(role="presentation" class!="{{ $sort==='newest' ? 'active' : '' }}"): a(href="?sort=newest") newest
+                                li(role="presentation" class!="{{ $sort==='active' ? 'active' : '' }}"): a(href="?sort=active") active
+
+                    +foreach('$answers as $answer')
+                        hr
+                        .media
+                            .media-left
+                                +form()(route!="['questions.answers.upvote',$question->id, $answer->id]")
+                                    button(type='submit').btn.btn-link: h4.glyphicon.glyphicon-arrow-up
+                                h4 {{ $answer->votes }}
+                                +form()(route!="['questions.answers.downvote',$question->id, $answer->id]")
+                                    button(type='submit').btn.btn-link: h4.glyphicon.glyphicon-arrow-down
+                                +if('$question->user === Auth::user()')
+                                    a: h4.glyphicon.glyphicon-ok
+                                    +else
+                                        +if('$answer->accepted')
+                                            h4.glyphicon.glyphicon-ok
+
+                            .media-body
+                                div {!! $answer->parsed_content !!}
+                                .row
+                                    .col-sm-6.col-xs-12
+                                        ul.list-inline
+                                            li: a(href!="{{ route('questions.answers.edit', [$question->id, $answer->id]) }}") Edit
+                                            li: a(href!="{{ route('questions.answers.comments.create', [$question->id, $answer->id]) }}") Comment
+                                    .col-sm-3.col-xs-6
+                                    .col-sm-3.col-xs-6
+                                        p
+                                            a(href!="{{ route('users.show', $answer->user->id) }}")  {{ $answer->user->name }}
+
+                                ul.list-unstyled: +foreach('$answer->comments as $comment ')
+                                    hr
+                                    li {!! $comment->parsed_content !!} &ndash;&nbsp;
+                                        a(href!="{{ route('users.show', $question->user->id) }}")  {{ $comment->user->name }} &nbsp;
+                                        span.text-muted  {{ $comment->created_at->diffForHumans() }}
+
+                    div {!! $answers->render(); !!}
+
+                    .row
+                        .col-sm-12
+                            +if('Auth::user()')
+
+                                +form()(route!='["questions.answers.store",$question->id]')
+                                    .form-group
+                                        +textarea('content').form-control#markdown
+                                    +submit("'Submit'").btn.btn-default
+
+                                +else
+                                    p Please login to write your answer
+                                    a.btn.btn-default(href!="{{ url('auth/login') }}") Login
+
+                +include('partials.aside')
+
++include('partials.markdown')

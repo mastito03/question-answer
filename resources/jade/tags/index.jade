@@ -1,0 +1,14 @@
+include ../_mixin
++extends('main')
+
++section('content')
+    .row
+        .col-sm-12
+            a.btn.btn-default.pull-right(href!="{{ route('tags.create') }}") New
+            .row
+                +foreach('$tags as $tag')
+                    .col-sm-6.col-md-4.col-lg-2.panel
+                        a(href!="{{ route('tags.show',$tag->id) }}"): h4 {{ $tag->name }}
+                        p {{ str_limit($tag->striped_description,200) }}
+
+            div {!! $tags->render() !!}

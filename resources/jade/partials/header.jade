@@ -1,0 +1,38 @@
+include ../_mixin
+
++section('title') Ask Elsword alpha
+
+.row.header
+    .col-xs-5
+        a(href!="{{ url('/') }}")
+            h1 AskElsword
+                small alpha
+    .col-xs-7
+        ul.list-inline.pull-right
+            +if('Auth::guest()')
+                li: a(href!="{{ url('/auth/login') }}") Login
+                li: a(href!="{{ url('/auth/register') }}") Register
+                +else
+                    li  Signed in as
+                        a(href="#").navbar-link  {{ Auth::user()->name }}
+                    li: a(href!="{{ url('/auth/logout') }}") Logout
+            li: a(href="#") Help
+            li: form(role="search").form-inline
+                .input-group.input-group-sm
+                    input(type="search").form-control.input-sm
+                    span.input-group-btn
+                        button.btn.btn-default: .glyphicon.glyphicon-search
+
+        ul.nav.nav-pills.pull-right
+            li(class!="{{ strpos(Request::url(), route('questions.index')) !== false ? 'active' : '' }}")
+                a(href!="{{ route('questions.index') }}") Question
+            li( class!="{{ strpos(Request::url(), route('tags.index')) !== false ? 'active' : '' }}")
+                a(href!="{{ route('tags.index') }}") Tags
+            li( class!="{{ strpos(Request::url(), route('users.index')) !== false ? 'active' : '' }}")
+                a(href!="{{ route('users.index') }}") User
+            //- li(class!="{{ strpos(Request::url(), route('badge')) !== false ? 'active' : '' }}")
+                a(href!="{{ route('badge') }}") Badge
+            li(class!="{{ strpos(Request::url(), route('questions.unanswered')) !== false ? 'active' : '' }}")
+                a(href!="{{ route('questions.unanswered') }}") Unanswered
+            li(class!="{{ strpos(Request::url(), route('questions.create')) !== false ? 'active' : '' }}")
+                a(href!="{{ route('questions.create') }}") Ask Question

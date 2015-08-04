@@ -1,0 +1,2 @@
+
+<div class="col-sm-3 hidden-sm"><img src="http://placehold.it/300x440&amp;text=[ad]" class="img-responsive"/><img src="http://placehold.it/300x440&amp;text=[ad]" class="img-responsive"/><img src="http://placehold.it/300x440&amp;text=[ad]" class="img-responsive"/></div>

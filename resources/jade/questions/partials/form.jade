@@ -1,0 +1,29 @@
+include ../../_mixin
+
+.form-group
+    label Title
+        small required
+    +text('title')('required').form-control
+    small.error Title is required.
+
+.form-group
+    label Content
+        small required
+    +textarea('content')('required').form-control#markdown
+    small.error Content is required.
+
+.form-group
+    label Tags
+    +select('tags_list[]','$tags')('multiple').form-control#tags
+
+
++section('style')
+    link(rel="stylesheet" href!="{{ url('css/select2/select2.min.css') }}")
+    //- link(rel="stylesheet" href!="{{ url('css/select2/foundation.css') }}")
+
++section('script')
+    script(src!="{{ url('js/select2/select2.min.js') }}")
+    script.
+        $('#tags').select2();
+
++include('partials.markdown')

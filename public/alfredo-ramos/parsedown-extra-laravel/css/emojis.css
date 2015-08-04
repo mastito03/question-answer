@@ -1,0 +1,17 @@
+/**
+ * This file is part of the Parsedown Extra package for Laravel 5
+ * @link https://github.com/AlfredoRamos/parsedown-extra-laravel
+ */
+
+/**
+ * Global
+ */
+.emoji {
+	min-width: 1em;
+	min-height: 1em;
+	width: 1.5em;
+	height: 1.5em;
+	max-width: 4em;
+	max-height: 4em;
+	vertical-align: middle;
+}

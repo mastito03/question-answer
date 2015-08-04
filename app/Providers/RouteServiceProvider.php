@@ -27,6 +27,14 @@ class RouteServiceProvider extends ServiceProvider
         //
 
         parent::boot($router);
+
+        $router->model('questions','App\Question');
+        $router->model('answers','App\Answer');
+        $router->model('tags','App\Tag');
+        // $router->model('sites',function ($url)
+        // {
+        //     return App\Site:: siteavaliable($url)
+        // });
     }
 
     /**

@@ -1,0 +1,27 @@
+include ../../_mixin
++extends('main')
+
++section('content')
+    .row
+        .col-sm-9
+
+            div {!! $question->parsed_content !!}
+            hr
+
+            +form('$answer')('method'!='"PATCH"', 'route'!="['questions.answers.update', $question->id, $answer->id]")
+
+                .form-group
+                    label Content
+                        small required
+                    +textarea('content')('required').form-control#markdown
+                    small.error Content is required.
+
+                .form-group
+                    label Revision message
+                    +text('revision_message','').form-control
+
+                +submit("'Submit'").btn.btn-default
+
+        +include('partials.aside')
+
++include('questions.partials.markdown')

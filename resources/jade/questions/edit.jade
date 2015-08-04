@@ -1,0 +1,19 @@
+include ../_mixin
++extends('main')
+
++section('content')
+    .row
+        .col-sm-9
+
+            +form('$question')(method!='"PATCH"', route!="['questions.update',$question->id]")
+
+                +include('questions.partials.form')
+
+                .form-group
+                    label Revision message
+                    +text('revision_message','').form-control
+
+                +submit("'Submit'").btn.btn-default
+
+        +include('partials.aside')
+

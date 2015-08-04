@@ -1,0 +1,48 @@
+include ../_mixin
++extends('main')
+
++section('content')
+    .row
+        .col-sm-9
+            nav Question
+                ul.nav.nav-tabs.pull-right
+                    li(role="presentation").active: a(href="#") active
+                    li(role="presentation"): a(href="#") featured
+                        span.badge 5
+                    li(role="presentation").hidden-sm: a(href="#") week
+                    li(role="presentation").hidden-sm: a(href="#") month
+
+            .clearfix: +forelse ('$questions as $question')
+                hr
+                .media
+                    .media-left
+                        h4 {{ $question->votes }}
+                            .glyphicon.glyphicon-arrow-up
+                        h4 {{ $question->answers_count }}
+                            .glyphicon.glyphicon-comment
+                        h4 0
+                            .glyphicon.glyphicon-eye-open
+                    .media-body
+                        a(href!="{{ route('questions.show', $question->id) }}")
+                            h4.media-heading {{ $question->title }}
+                        p {{ str_limit($question->striped_content,200) }}
+                        .row
+                            .col-sm-6.col-xs-12
+                                +foreach('$question->tags as $tag')
+                                    span.label.label-primary {{ $tag->name }}
+                            .col-sm-3.col-xs-6
+                                +if('isset($question->latestRevision)')
+                                    p: small edited {{ $question->updated_at }}
+                            .col-sm-3.col-xs-6
+                                .bg-primary
+                                    p: small asked at {{ $question->created_at }}
+                                    img(src="http://placehold.it/25x25&text=[img]")
+                                    a(href!="{{ route('users.show', $question->user->id) }}") {{ $question->user->name }}
+
+                +empty
+                    hr
+                    p tidak ada isi
+
+            div {!! $questions->render() !!}
+
+        +include('partials.aside')

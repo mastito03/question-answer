@@ -1,0 +1,48 @@
+
+.questions + .questions
+{
+    border-top: 1px solid #999;
+}
+
+.transparent
+{
+    border: 0;
+    background-color: transparent;
+}
+
+@mixin icon($color)
+{
+    font-size: 70px;
+
+    color: $color;
+}
+
+.icon-green
+{
+    @include icon(green);
+}
+
+.icon-red
+{
+    @include icon(red);
+}
+
+.icon-blue
+{
+    @include icon(blue);
+}
+
+.icon-yellow
+{
+    @include icon(yellow);
+}
+
+.icon-gray
+{
+    @include icon(gray);
+}
+
+.icon-purple
+{
+    @include icon(purple);
+}

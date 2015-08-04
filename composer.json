@@ -6,7 +6,12 @@
     "type": "project",
     "require": {
         "php": ">=5.5.9",
-        "laravel/framework": "5.1.*"
+        "laravel/framework": "5.1.*",
+        "sofa/revisionable": "~1.0@dev",
+        "alfredo-ramos/parsedown-extra-laravel": "0.2.*",
+        "mews/purifier": "dev-master",
+        "illuminate/html": "^5.0@dev",
+        "cartalyst/sentinel": "2.0.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

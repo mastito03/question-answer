@@ -1,0 +1,26 @@
+body
+{
+    font-family: 'Cabin Sketch',cursive;
+    font-size: 16px;
+    line-height: 1.42857;
+
+    color: #333;
+    background-color: #fff;
+}
+hr
+{
+    margin-top: 21px;
+    margin-bottom: 21px;
+
+    border: 0;
+    border-top: 1px solid #ddd;
+}
+.header
+{
+    margin-top: 10px;
+    margin-bottom: 25px;
+}
+.page-header
+{
+    margin-top: -25px;
+}

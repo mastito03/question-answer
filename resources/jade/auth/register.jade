@@ -1,0 +1,28 @@
+include ../_mixin
++extends('main')
+
++section('content')
+    .row
+        .col-sm-9
+            +form()('url'!="'auth/register'").form-horizontal
+
+                .form-group
+                    label(for='name') Name
+                    +text('name',"old('name')")('required').form-control#name
+
+                .form-group
+                    label(for='email') Email
+                    +email('email',"old('email')")('required').form-control#email
+
+                .form-group
+                    label(for='password') Password
+                    +password('password')('required').form-control#password
+
+                .form-group
+                    label(for='password_confirmation') Password confirmation
+                    +password('password_confirmation')('required').form-control#password_confirmation
+
+                +submit("'Register'").btn.btn-default
+
+
+

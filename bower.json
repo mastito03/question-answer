@@ -1,0 +1,16 @@
+{
+  "name": "myapp",
+  "version": "0.0.1",
+  "private": "true",
+  "dependencies": {
+    "modernizr": "~2.8.3",
+    "angular": "~1.4.2",
+    "foundation": "~5.5.2",
+    "angular-foundation": "~0.6.0",
+    "fontawesome": "~4.3.0",
+    "select2": "~4.0.0",
+    "bootstrap": "~3.3.5",
+    "bootstrap-markdown": "~2.9.0",
+    "bootsketch": "~1.0.1"
+  }
+}

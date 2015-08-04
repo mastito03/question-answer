@@ -1,0 +1,23 @@
+include ../_mixin
++extends('main')
+
++section('content')
+    .row
+        .col-sm-9
+            +form()('url'!="'auth/login'").form-horizontal
+
+                .form-group
+                    label(for='email') Email
+                    +email('email',"old('email')")('required').form-control#email
+
+                .form-group
+                    label(for='password') Password
+                    +password('password')('required').form-control#password
+
+                .form-group
+                    label(for='remember')
+                        +checkbox('remember').form-control#remember Remember me
+
+                +submit("'Login'").btn.btn-default
+
+
